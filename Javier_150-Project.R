@@ -2,6 +2,9 @@
 #@date: December 12, 2024
 #@course: CMSC 150 -B4L
 
+
+options(max.print=1000000)
+options(digits = 5)
 #Functions
 Simplex = function(tableau, isMax){
   
@@ -16,8 +19,7 @@ Simplex = function(tableau, isMax){
     if(tableau[rowSize,pivotCol] >= 0){ #Checks if it's a positive number
       break #If it is, end the loop (Computation Done).
     }else{ #If it is still a negative number, proceed with computations
-      
-      testRatio = ifelse(((tableau[, pivotCol]) == 0), 0, ((tableau[, colSize])/(tableau[, pivotCol]))) #Gets the test ratio
+      testRatio = (tableau[, colSize])/(tableau[, pivotCol]) #Gets the test ratio
       ratioIndex = order(testRatio, decreasing = FALSE) #Arranges the indexes of the test ratio's in increasing order
       for(i in 1:rowSize){ #Loop for getting the pivotRow
         pivotRow = ratioIndex[i]
@@ -61,14 +63,13 @@ Simplex = function(tableau, isMax){
     basicSolution = tableau[rowSize, -c(colSize-1)] #Gets the last row of the tableau, excluding the colSize-1 column
   }
   
-  return(list(finalTableau = tableau, basicSolution = basicSolution, Z = basicSolution[colSize-1]))
+  ServingVec = basicSolution[((colSize-1)-(rowSize-1)):(colSize-1)]
+  
+  return(list(finalTableau = tableau, basicSolution = ServingVec, Z = basicSolution[colSize-1]))
 }
 
 
 
-
-
-n = 20
 
 Foods = c("Frozen Broccoli","Carrots,Raw","Celery,Raw","Frozen Corn","Lettuce,Iceberg,Raw","Peppers,Sweet,Raw","Potatoes,Baked","Tofu","Roasted Chicken","Spaghetti W/ Sauce","Tomato,Red,Ripe,Raw","Apple,Raw,W/Skin","Banana","Grapes","Kiwifruit,Raw,Fresh",
           "Oranges","Bagels","Wheat Bread","White Bread","Oatmeal Cookies","Apple Pie","Chocolate Chip Cookies","Butter,Regular","Cheddar Cheese","3.3% Fat,Whole Milk","2% Lowfat Milk","Skim Milk","Poached Eggs","Scrambled Eggs","Bologna,Turkey","Frankfurter,Beef","Ham,Sliced,Extralean","Kielbasa,Pork","Cap'N Crunch",
@@ -141,13 +142,13 @@ InfoTable = matrix(c(0.16,73.8,0,0.8,68.2,13.6,8.5,8,5867.4,160.2,159,2.3,
                      0.67,172,2.5,5.9,951.3,22.8,8.6,7.9,888,1.5,81,2), nrow = 64, byrow = TRUE)
 
 
-#colnames(InfoTable) = c("Cost","Calories","Cholesterol","Total Fat", "Sodium", "Carbohydrates", "Dietary Fiber", "Protein", "Vitamin A", "Vitamin C", "Calcium", "Iron")
-
-#rownames(InfoTable) = Foods
+colnames(InfoTable) = c("Cost","Calories","Cholesterol","Total Fat", "Sodium", "Carbohydrates", "Dietary Fiber", "Protein", "Vitamin A", "Vitamin C", "Calcium", "Iron")
+rownames(InfoTable) = Foods
 
 InfoTable
 
 Selected = c(1,2,3,4,5,9,7,8,6,10,11,12,13,14,15,16,17,18,19,20)
+n = length(Selected)
 
 Cost = InfoTable[Selected,1]
 
@@ -155,31 +156,37 @@ Cost = InfoTable[Selected,1]
 Cost = append(Cost,0)
 
 NutritionTableau = InfoTable[Selected,(2:12)]
-NutritionTableau
 
-InitialTableau = cbind(NutritionTableau,NutritionTableau)
+InitialTableau = cbind(NutritionTableau, NutritionTableau *-1)
 
 maxConst = c(2250,300,65,2400,300,100,100,50000,20000,1600,30)
 minConst = c(2000,0,0,0,0,25,50,5000,50,800,10)
 
-Constraints = c(maxConst,minConst)
-Constraints = Constraints *-1
+nutrientsConstraints = c(minConst *-1, maxConst)
+InitialTableau = rbind(InitialTableau, nutrientsConstraints)
 
-InitialTableau = rbind(InitialTableau, Constraints)
+minServingConst = diag(x=1, nrow =(n+1), ncol = n)
+maxServingConst = diag(x=-1, nrow =n)
+maxServingConst = rbind(maxServingConst, replicate(n,10))
 
-Slacks = diag(x = 1, nrow = (n+1), ncol = 20)
-Slacks = rbind(Slacks[1:(n/2), ] *-1, Slacks[((n/2)+1):(n+1),])
-Slacks
+Slacks = diag(x = 1, nrow = (n+1), ncol = n)
 
 P = c(1:length(Selected)-1)*0
 P = append(P,1)
 P
 
-InitialTableau = cbind(InitialTableau, Slacks)
-InitialTableau = cbind(InitialTableau, P)
-InitialTableau = cbind(InitialTableau, Cost)
 
+InitialTableau = cbind(InitialTableau, minServingConst, maxServingConst, Slacks, P, Cost)
 InitialTableau
 
 
 Simplex(InitialTableau, FALSE)
+finalTableau = results$finalTableau
+Cost = results$Z
+Servings = results$basicSolution
+
+finalTableau
+Cost
+Servings
+#rownames(Servings) = Foods[Selected]
+
