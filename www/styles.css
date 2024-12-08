@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+  font-family: 'Poppins';
+  font-weight: normal;
+  
+}
+
+
+.welcomePage{
+    min-height: 100vh;
+    width: 100%;
+    background-image: linear-gradient(rgba(4,9,30,0.5),rgba(4,9,30,0.5)), url("home-bg.png");
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+.text{
+    width: 60%;
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+}
+
+.text h1 {
+    font-size: 75px;
+    font-weight: bold;
+}
+
+.text span{
+  background: -webkit-linear-gradient(#eae4c8, #6dc6cc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+.text p {
+    font-size: 18px;
+    margin: 10px 0 40px;
+}
+
+.button{
+  padding: 10px 20px;
+  width: 200px;
+  height: 55px;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 50px;
+  background-color: white;
+  border: none;
+  transition-duration: 0.4s;
+}
+
+.button:hover{
+  font-style: bold;
+  background-color: #6dc6cc;
+  color: white;
+  
+}
+
+.opt-button{
+  padding: 10px 20px;
+  width: 170px;
+  height: 50px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 30px;
+  background-color: #f3f7f4;
+  border: rgb(42 42 42 0.5 );
+  border
+  transition-duration: 0.4s;
+}
+
+.opt-button:hover:enabled{
+  font-style: bold;
+  background-color: #6dc6cc;
+  background-size: cover;
+  color: white;
+  
+}
+
+.opt-button:disabled{
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.headerTitle{
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.logo{
+  position: relative;
+  margin-right: 9px;
+  padding-left: 5px;
+}
+
+.subHeader{
+  font-weight: bold;
+  font-size: 22px;
+  color: #2a2a2a;
+}
+
+.smallHeader{
+  font-weight: bold;
+  font-size: 18px;
+  display: inline;
+  margin-right: 50px;
+}
+
+.outputHeader{
+  background-image: url("gradient-bg.png");
+  background-repeat: no-repeat;
+  background-size: 340px;
+  height: 50px;
+  align-content: center;
+  
+}
+
+.buttonHolder{
+  margin-top: -10px;
+  padding-bottom: 20px;
+  align-content: center;
+}
+
+.select-button{
+  width: 65px;
+  height: 30px;
+  border: none;
+  font-size: 15px;
+  text-align: middle;
+}
+
+.select-button:hover{
+  font-style: bold;
+  color: white;
+  background-color: #6dc6cc;
+  text-align: middle;
+}
+
+.checkBox-Header{
+  padding-bottom: 15px;
+}
+
+
+.textOutput{
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.text-Output{
+  max-width: 460px;
+  min-height: 250px;
+}
+.accent{
+  background-image: url("bannerLarge.png");
+  background-size: cover;
+}
+
+.cardHeader{
+  background-image: url("gradient-bg-rot.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 70px;
+  align-content: center;
+}
+
+.result-Output{
+  min-height: 300px;
+  max-width: 700px;
+}
+
+.iterationDisplay{
+  padding-top: 30px;
+}
+
+.about{
+  background-image: url("about-nutrivise.png");
+  background-size: cover;
+}
+
+.code-snippet{
+  padding-top: 540px;
+  padding-left: 60px;
+  margin-bottom 50px;
+}
+
+.ace_editor {
+    border: 1px solid #ccc;
+    border-radius: 10px;       
+    overflow: hidden;          
+}
+
+#textResult{
+  padding-top: 0px;
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #2a2a2a;
+}
+
+#menuMat{
+  padding-top: 10px;
+  font-size: 18px;
+  color: #2a2a2a;
+}
+
+#initialTableau{
+  margin-bottom: 30px;
+}
+
+
+
